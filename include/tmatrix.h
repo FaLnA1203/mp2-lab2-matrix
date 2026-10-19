@@ -51,12 +51,12 @@ public:
   }
   ~TDynamicVector()
   {
-      delete pMem;
+      delete[] pMem;
       sz = 0;
   }
   TDynamicVector& operator=(const TDynamicVector& v)
   {
-      if (v.pMem != pMem) {
+      if (this != &v) {
           delete pMem;
           sz = v.sz;
           pMem = new T[sz];
@@ -203,6 +203,7 @@ public:
 
   using TDynamicVector<TDynamicVector<T>>::operator[];
 
+
   // сравнение
   bool operator==(const TDynamicMatrix& m) const noexcept
   {
@@ -217,9 +218,11 @@ public:
   // матрично-скалярные операции
   TDynamicMatrix operator*(const T& val)
   {
+      TDynamicMatrix res(sz);
       for (int i = 0; i < sz; i++) {
-          pMem[i] *= val;
+          res.pMem[i] = pMem[i] *= val;
       }
+      return res;
   }
 
   // матрично-векторные операции
