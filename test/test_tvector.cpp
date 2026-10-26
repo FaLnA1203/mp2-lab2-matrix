@@ -162,12 +162,14 @@ TEST(TDynamicVector, can_multiply_scalar_by_vector)
 TEST(TDynamicVector, can_add_vectors_with_equal_size)
 {
 	TDynamicVector<int> v(3);
-	TDynamicVector<int> v1(3);
-	TDynamicVector<int> res;
-	ASSERT_NO_THROW(res = v + v1);
 	for (int i = 0; i < 3; i++) {
-		ASSERT_EQ(v[i] + v1[i], res[i]);
+		v[i] = i+1;
 	}
+	TDynamicVector<int> res;
+	ASSERT_NO_THROW(res = v + v);
+	TDynamicVector<int> true_res(3);
+	true_res[0] = 2; true_res[1] = 4; true_res[2] = 6;
+	ASSERT_EQ(true_res, res);
 }
 
 TEST(TDynamicVector, cant_add_vectors_with_not_equal_size)
