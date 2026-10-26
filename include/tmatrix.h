@@ -136,24 +136,27 @@ public:
   // скалярные операции
   TDynamicVector operator+(T val)
   {
+      TDynamicVector<T> res(*this);
       for (size_t i = 0; i < sz; i++) {
-          pMem[i] += val;
+          res.pMem[i] += val;
       }
-      return *this;
+      return res;
   }
   TDynamicVector operator-(T val)
   {
+      TDynamicVector<T> res(*this);
       for (size_t i = 0; i < sz; i++) {
-          pMem[i] -= val;
+          res.pMem[i] -= val;
       }
-      return *this;
+      return res;
   }
   TDynamicVector operator*(T val)
   {
+      TDynamicVector<T> res(*this);
       for (size_t i = 0; i < sz; i++) {
-          pMem[i] *= val;
+          res.pMem[i] *= val;
       }
-      return *this;
+      return res;
   }
 
   // векторные операции
@@ -177,7 +180,7 @@ public:
       }
       return *this;
   }
-  T operator*(const TDynamicVector& v)
+  T operator*(const TDynamicVector& v) noexcept(noexcept(T()))
   {
       if (sz != v.sz) {
           throw out_of_range("векторы должны иметь одинаковый размер");
