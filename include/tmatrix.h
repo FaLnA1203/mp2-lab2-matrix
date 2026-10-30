@@ -102,14 +102,16 @@ public:
   // индексация с контролем
   T& at(size_t ind)
   {
-      if ((ind < 0) || (ind >= sz)) {
+      // отрицательный индекс приходит сюда как очень большое size_t
+      if (ind >= sz) {
           throw out_of_range("индекс меньше нуля или больше размера массива");
       }
       return pMem[ind];
   }
   const T& at(size_t ind) const
   {
-      if ((ind < 0) || (ind >= sz)) {
+      // отрицательный индекс приходит сюда как очень большое size_t
+      if (ind >= sz) {
           throw out_of_range("индекс меньше нуля или больше размера массива");
       }
       return pMem[ind];
@@ -240,7 +242,7 @@ public:
               sz = m.sz;
               pMem = new TDynamicVector<T>[sz];
           }
-          for (int i = 0; i < sz; i++) {
+          for (size_t i = 0; i < sz; i++) {
               pMem[i] = m.pMem[i];
           }
       }
